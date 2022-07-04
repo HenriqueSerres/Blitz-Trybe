@@ -10,10 +10,9 @@ const Task = (Sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING
     },
-    userId: {
+    status: {
       allowNull: false,
-      type: DataTypes.NUMBER,
-      
+      type: DataTypes.STRING
     },
     createdAt: {
       allowNull: false,
@@ -28,10 +27,6 @@ const Task = (Sequelize, DataTypes) => {
 	}, {
 		timestamps: true,
 	});
-
-	Task.associate = (models) => {
-		Task.belongsTo(models.User, { as: 'user', foreignKey: 'userId' });
-	};
 
 	return Task;
 };

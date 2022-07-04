@@ -1,9 +1,8 @@
 const Joi = require('joi');
 
 const POST = Joi.object({
-  title: Joi.string().required(),
   content: Joi.string().required(),
-  categoryIds: Joi.array().items(Joi.number()).required(),
+  status: Joi.string().required(),
 });
 
 const validatePost = (req, _res, next) => {

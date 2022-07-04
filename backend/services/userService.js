@@ -8,6 +8,7 @@ const createUser = async (body) => {
     throw handleError('409', 'User already registered');
   }
   const newUser = await User.create(body);
+  console.log(newUser);
   return newUser;
 };
 

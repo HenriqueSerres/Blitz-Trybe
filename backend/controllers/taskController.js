@@ -2,9 +2,7 @@ const taskService = require('../services/taskService');
 
 const addTask = async (req, res, next) => {
   try {
-    const { content, status } = req.body;
-    const { id } = req.user.data;
-    const newTask = await taskService.addTask({ userId: id, content, status });
+    const newTask = await taskService.addTask(req.body);
     if (newTask) {
       return res.status(201).json(newTask);
     }    
@@ -27,7 +25,7 @@ const getAllTasks = async (req, res, next) => {
 const getTaskById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const task = await taskService.getPostById(id);
+    const task = await taskService.getTaskById(id);
     return res.status(200).json(task);
   } catch (error) {
     console.log(error);
@@ -38,10 +36,10 @@ const getTaskById = async (req, res, next) => {
 const taskUpDate = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { email } = req.user.data;
-    const { title, content } = req.body;
-    const post = await taskService.postUpDate({ id, email, title, content });
-    return res.status(200).json(post);
+    const { content, status } = req.body;
+    const task = await taskService.taskUpDate({ id, content, status });
+    console.log(task);
+    return res.status(200).json(task);
   } catch (error) {
     console.log(error);
     next(error);
@@ -51,8 +49,7 @@ const taskUpDate = async (req, res, next) => {
 const deleteTask = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const { email } = req.user.data;
-    await taskService.deletePost({ id, email });
+    await taskService.deleteTask(id);
     return res.status(204).end();
   } catch (error) {
     console.log(error);

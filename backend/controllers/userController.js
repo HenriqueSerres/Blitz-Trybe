@@ -3,10 +3,11 @@ const generateToken = require('../utils/generateToken');
 
 const createUser = async (req, res, next) => {
   try {
-    const { name, email } = req.body;
+    const { name, email, password } = req.body;
     const newUser = await userService.createUser(req.body);
+    console.log(newUser);
     if (newUser) {
-      const token = generateToken(name, email);
+      const token = generateToken(name, email, password);
       return res.status(201).json({ token });
     }    
   } catch (error) {

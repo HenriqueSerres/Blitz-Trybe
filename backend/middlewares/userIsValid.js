@@ -1,10 +1,9 @@
 const Joi = require('joi');
 
 const USER = Joi.object({
-  displayName: Joi.string().min(8).required(),
+  name: Joi.string().min(8).required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(6).required(),
-  image: Joi.string(),
 });
 
 const validateUser = (req, _res, next) => {

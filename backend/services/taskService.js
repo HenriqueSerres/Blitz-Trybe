@@ -1,34 +1,35 @@
-const { User, Task } = require('../models');
+const { Task } = require('../models');
 const handleError = require('../utils/handleError');
 
-const addTask = async ({ userId }) => {
-  const tasks = await Task.create({ where: { id: userId } });
+const addTask = async (body) => {
+  const tasks = await Task.create(body);
   
   return tasks;
 };
 
 const getAllTasks = async () => {
-  const allTasks = await Task.findAll({
-    include: [{ model: User, as: 'user', attributes: { exclude: 'password' } },
-    { model: Task, as: 'tasks', through: { attributes: [] } }],
-  });
+  const allTasks = await Task.findAll();
   return allTasks;
 };
 
 const getTaskById = async (id) => {
-  const task = await Task.findByPk(id, {
-    include: [{ model: User, as: 'user', attributes: { exclude: 'password' } },
-    { model: Task, as: 'tasks', through: { attributes: [] } }],
-  });
+  const task = await Task.findByPk(id);
   if (!task) throw handleError('404', 'task does not exist');
   return task;
 };
 
-const deleteTask = async ({ id, email }) => {
+const taskUpDate = async({ id, content, status }) => {
+  const upDatedTask = await Task.update(
+    {content, status}, { where: { id }}
+  );
+  console.log(upDatedTask);
+  return upDatedTask;
+}
+
+const deleteTask = async (id) => {
   const task = await Task.findByPk(id);
   if (!task) throw handleError('404', 'Task does not exist');
-  const user = await User.findOne({ where: { email } });
-  if (user.dataValues.id !== task.dataValues.userId) throw handleError('401', 'Unauthorized user');
+  
   await Task.destroy(
     { where: { id } },
   );
@@ -39,5 +40,6 @@ module.exports = {
   addTask,
   getAllTasks,
   getTaskById,
+  taskUpDate,
   deleteTask,
 };
