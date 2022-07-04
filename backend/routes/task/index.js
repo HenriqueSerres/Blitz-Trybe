@@ -6,7 +6,7 @@ const validateTaskEdit = require('../../middlewares/updateTaskValidate');
 
 const taskRouter = express.Router();
 
-taskRouter.post('/', validateToken, validateTask, taskController.addtask);
+taskRouter.post('/', validateToken, validateTask, taskController.addTask);
 taskRouter.get('/', validateToken, taskController.getAllTasks);
 taskRouter.get('/:id', validateToken, taskController.getTaskById);
 taskRouter.put('/:id', validateToken, validateTaskEdit, taskController.taskUpDate);

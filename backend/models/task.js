@@ -1,10 +1,10 @@
-const Task = (sequelize, DataTypes) => {
-	const Task = sequelize.define('Task', {
+const Task = (Sequelize, DataTypes) => {
+	const Task = Sequelize.define('Task', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.INTEGER
+      type: DataTypes.NUMBER
     },
     content: {
       allowNull: false,
@@ -12,7 +12,7 @@ const Task = (sequelize, DataTypes) => {
     },
     userId: {
       allowNull: false,
-      type: DataTypes.INTEGER,
+      type: DataTypes.NUMBER,
       
     },
     createdAt: {

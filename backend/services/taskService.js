@@ -24,19 +24,6 @@ const getTaskById = async (id) => {
   return task;
 };
 
-const taskUpDate = async ({ id, email, content }) => {
-  const user = await User.findOne({ where: { email } });
-  if (user.dataValues.id !== Number(id)) {
-    throw handleError('401', 'Unauthorized user');
-  }
-  await Task.update(
-    { content },
-    { where: { id } },
-  );
-    const editedTask = await getTaskById(id);
-    return editedTask;
-};
-
 const deleteTask = async ({ id, email }) => {
   const task = await Task.findByPk(id);
   if (!task) throw handleError('404', 'Task does not exist');
@@ -52,6 +39,5 @@ module.exports = {
   addTask,
   getAllTasks,
   getTaskById,
-  taskUpDate,
   deleteTask,
 };

@@ -10,7 +10,7 @@ const loginUser = async (email, password) => {
     throw handleError('400', 'Invalid fields');
   }
   const userData = user.dataValues;
-  const { image: imagDB, password: passDB, ...tokenHeader } = userData;
+  const { ...tokenHeader } = userData;
   return tokenHeader;
 };
 

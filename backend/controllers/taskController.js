@@ -1,12 +1,12 @@
-const postService = require('../services/postService');
+const taskService = require('../services/taskService');
 
-const addPost = async (req, res, next) => {
+const addTask = async (req, res, next) => {
   try {
-    const { title, content, categoryIds } = req.body;
+    const { content, status } = req.body;
     const { id } = req.user.data;
-    const newPost = await postService.addPost({ id, title, content, categoryIds });
-    if (newPost) {
-      return res.status(201).json(newPost);
+    const newTask = await taskService.addTask({ userId: id, content, status });
+    if (newTask) {
+      return res.status(201).json(newTask);
     }    
   } catch (error) {
     console.log(error);
@@ -14,33 +14,33 @@ const addPost = async (req, res, next) => {
   }
 };
 
-const getAllPosts = async (req, res, next) => {
+const getAllTasks = async (req, res, next) => {
   try {
-    const allPosts = await postService.getAllPosts();
-    return res.status(200).json(allPosts);
+    const allTasks = await taskService.getAllTasks();
+    return res.status(200).json(allTasks);
   } catch (error) {
     console.log(error);
     next(error);
   }
 };
 
-const getPostById = async (req, res, next) => {
+const getTaskById = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const post = await postService.getPostById(id);
-    return res.status(200).json(post);
+    const task = await taskService.getPostById(id);
+    return res.status(200).json(task);
   } catch (error) {
     console.log(error);
     next(error);
   }
 };
 
-const postUpDate = async (req, res, next) => {
+const taskUpDate = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { email } = req.user.data;
     const { title, content } = req.body;
-    const post = await postService.postUpDate({ id, email, title, content });
+    const post = await taskService.postUpDate({ id, email, title, content });
     return res.status(200).json(post);
   } catch (error) {
     console.log(error);
@@ -48,11 +48,11 @@ const postUpDate = async (req, res, next) => {
   }
 };
 
-const deletePost = async (req, res, next) => {
+const deleteTask = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { email } = req.user.data;
-    await postService.deletePost({ id, email });
+    await taskService.deletePost({ id, email });
     return res.status(204).end();
   } catch (error) {
     console.log(error);
@@ -60,22 +60,10 @@ const deletePost = async (req, res, next) => {
   }
 };
 
-const searchPost = async (req, res, next) => {
-  try {
-    const { q } = req.query;
-    const post = await postService.searchPost(q);
-    return res.status(200).json(post);
-  } catch (error) {
-    console.log(error);
-    next(error);
-  }
-};
-
 module.exports = {
-  addPost,
-  getAllPosts,
-  getPostById,
-  postUpDate,
-  deletePost,
-  searchPost,
+  addTask,
+  getAllTasks,
+  getTaskById,
+  taskUpDate,
+  deleteTask,
 };
