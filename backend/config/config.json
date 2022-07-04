@@ -1,0 +1,9 @@
+{
+  "development": {
+    "username": "root",
+    "password": "20142017",
+    "database": "TryberTasks",
+    "host": "localhost",
+    "dialect": "mysql"
+  }
+}
