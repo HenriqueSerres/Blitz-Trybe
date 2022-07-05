@@ -38,7 +38,6 @@ const taskUpDate = async (req, res, next) => {
     const { id } = req.params;
     const { content, status } = req.body;
     const task = await taskService.taskUpDate({ id, content, status });
-    console.log(task);
     return res.status(200).json(task);
   } catch (error) {
     console.log(error);

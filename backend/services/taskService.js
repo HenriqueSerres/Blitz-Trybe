@@ -22,7 +22,6 @@ const taskUpDate = async({ id, content, status }) => {
   const upDatedTask = await Task.update(
     {content, status}, { where: { id }}
   );
-  console.log(upDatedTask);
   return upDatedTask;
 }
 
