@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import UserContext from './UserContext';
-import useArray from './hooks/useArray';
 
 function UserProvider({ children }) {
   const [newInput, setNewInput] = useState('');
-  const [todos, addTodos] = useArray();
+  const [user, setUser] = useState([]);
 
   const handleInput = ({ target }) => {
     setNewInput(target.value);
   };
 
   const handleClick = () => {
-    addTodos(newInput);
+    setUser(user.push(newInput));
     setNewInput('');
   };
 
   const value = {
-    todos,
+    user,
     handleInput,
     handleClick,
   };
@@ -28,5 +27,9 @@ function UserProvider({ children }) {
     </UserContext.Provider>
   );
 }
+
+UserProvider.propTypes = {
+  children: PropTypes.func.isRequired,
+};
 
 export default UserProvider;
